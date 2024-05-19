@@ -78,3 +78,8 @@ footer {
   margin: 10px;
   background-color: white;
 }
+
+.pressed {
+  box-shadow: 0 3px 4px 0 #dbedf3; /*! Add shadow to button when clicked or pressed */
+  opacity: 0.5;
+}

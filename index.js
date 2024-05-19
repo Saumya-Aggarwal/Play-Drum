@@ -8,7 +8,21 @@ for (let i = 0; i < Button.length; i++) {
 //click functionality or playing drum with mouse 
  function clicked() {
   var buttonInnerHTML = this.innerHTML;             //*'this' is used to access the innerHTML of the button that is clicked.
-  switch (buttonInnerHTML) {
+  playSound(buttonInnerHTML);
+  animation(buttonInnerHTML);
+}
+
+//for playing the drums with keys
+document.addEventListener ("keydown",keyboard);
+function keyboard(event){
+    var keyPressed=event.key;               //'event' is used to access the key that is pressed.
+    playSound(keyPressed);
+    animation(keyPressed);
+
+}   
+
+function playSound(key){
+  switch (key) {
     case "a":
       var tom1 = new Audio("sounds/tom-1.mp3");
       tom1.play();
@@ -43,46 +57,13 @@ for (let i = 0; i < Button.length; i++) {
   }
 }
 
-//for playing the drums with keys
-document.addEventListener ("keydown",keyboard);
-function keyboard(event){
-    var keyPressed=event.key;               //'event' is used to access the key that is pressed.
-    switch (keyPressed) {
-        case "a":
-          var tom1 = new Audio("sounds/tom-1.mp3");
-          tom1.play();
-          break;
-        case "w":
-          var snare = new Audio("sounds/snare.mp3");
-          snare.play();
-          break;
-        case "l":
-          var crash = new Audio("sounds/crash.mp3");
-          crash.play();
-          break;
-        case "d":
-          var kick = new Audio("sounds/kick-bass.mp3");
-          kick.play();
-          break;
-        case "j":
-          var tom2 = new Audio("sounds/tom-2.mp3");
-          tom2.play();
-          break;
-        case "k":
-          var tom3 = new Audio("sounds/tom-3.mp3");
-          tom3.play();
-          break;
-        case "s":
-          var tom4 = new Audio("sounds/tom-4.mp3");
-          tom4.play();
-          break;
-    
-        default:
-          break;
-      }
-
-}   
-
-
-
-
+// Function to add and remove animation class
+function animation(key) {
+  var activeButton = document.querySelector("." + key);
+  if (activeButton) {
+    activeButton.classList.add("pressed");
+    setTimeout(function () {
+      activeButton.classList.remove("pressed"); // Correct removal of the class
+    }, 100); // Delay for the animation
+  }
+}
