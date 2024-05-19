@@ -1,27 +1,26 @@
 var Button = document.querySelectorAll(".drum");
 for (let i = 0; i < Button.length; i++) {
-    Button[i].addEventListener("click", clicked);
-    /*instead of calling the function i.e. "clicked()" 
+  Button[i].addEventListener("click", clicked);
+  /*instead of calling the function i.e. "clicked()" 
        we are calling it by name.*/
-  }
-  
-//click functionality or playing drum with mouse 
- function clicked() {
-  var buttonInnerHTML = this.innerHTML;             //*'this' is used to access the innerHTML of the button that is clicked.
+}
+
+//click functionality or playing drum with mouse
+function clicked() {
+  var buttonInnerHTML = this.innerHTML; //*'this' is used to access the innerHTML of the button that is clicked.
   playSound(buttonInnerHTML);
   animation(buttonInnerHTML);
 }
 
 //for playing the drums with keys
-document.addEventListener ("keydown",keyboard);
-function keyboard(event){
-    var keyPressed=event.key;               //'event' is used to access the key that is pressed.
-    playSound(keyPressed);
-    animation(keyPressed);
+document.addEventListener("keydown", keyboard);
+function keyboard(event) {
+  var keyPressed = event.key; //'event' is used to access the key that is pressed.
+  playSound(keyPressed);
+  animation(keyPressed);
+}
 
-}   
-
-function playSound(key){
+function playSound(key) {
   switch (key) {
     case "a":
       var tom1 = new Audio("sounds/tom-1.mp3");
@@ -60,6 +59,9 @@ function playSound(key){
 // Function to add and remove animation class
 function animation(key) {
   var activeButton = document.querySelector("." + key);
+  // ! Why the if Condition is Needed:
+  // !Safety Check: When you call document.querySelector("." + key), it attempts to select an element with the class name that matches the key. If no such element exists, document.querySelector returns null.
+  // !Preventing Errors: If you try to call methods like classList.add or classList.remove on null, it will result in an error and your script will stop running. The if condition prevents this by ensuring that activeButton is not null before proceeding.
   if (activeButton) {
     activeButton.classList.add("pressed");
     setTimeout(function () {
